@@ -1,0 +1,10 @@
+services:
+  spark:
+    build: .
+    image: retail-lakehouse-spark:local
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    environment:
+      PYTHONPATH: /workspace
+      PYTHONUNBUFFERED: "1"

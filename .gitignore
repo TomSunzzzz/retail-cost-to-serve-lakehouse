@@ -1,0 +1,21 @@
+# raw data and pipeline output (large; regenerate locally)
+data_set/
+lakehouse/
+spark-warehouse/
+metastore_db/
+derby.log
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# secrets
+.env
+*.key
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
