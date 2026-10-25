@@ -16,7 +16,7 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 
 **Next**
 - Monday: Step 1 Bronze (`src/bronze.py`), Step 2 Silver + DQ (`src/silver.py`, `src/dq.py`), Step 3 Gold (`src/gold.py`), `src/run_pipeline.py`, synthetic budget (`scripts/make_budget.py`).
-- GitHub: install GitHub CLI, Tom authorises once, create the repo.
 
-**Open questions**
-- Public or private GitHub repo until the README is finished?
+**GitHub**
+- Repo: https://github.com/TomSunzzzz/retail-cost-to-serve-lakehouse (private until the README and report are finished, then make public).
+- GitHub CLI installed and logged in as TomSunzzzz; `git push` works from the command line.
