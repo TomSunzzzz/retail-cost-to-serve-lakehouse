@@ -84,7 +84,7 @@ Total Revenue, Orders, Average Order Value, Total Freight, Freight % of Revenue,
 - [ ] Owner can explain every layer
 
 ## Stretch (only after the minimum product)
-1. Port notebooks to Microsoft Fabric (Lakehouse + Notebooks + Data Factory pipeline) and add screenshots
+1. (moved to main line, see below)
 2. Power BI page 4: data-quality dashboard
 3. LLM classification of review comments into complaint themes
 4. Incremental loads (process only new data)
@@ -94,5 +94,5 @@ Total Revenue, Orders, Average Order Value, Total Freight, Freight % of Revenue,
 |---|---|
 | 2026-10-25 (Sun) | Environment, dataset, repo skeleton, smoke test |
 | 2026-10-26 (Mon) | Steps 0-3: Bronze, Silver + DQ, Gold |
-| 2026-10-27 (Tue) | Step 4 Power BI (built by Tom), Step 5 README + GitHub — minimum product done |
+| 2026-10-27 (Tue) | Run the pipeline in Microsoft Fabric (Lakehouse, Notebooks, Data Factory pipeline); Step 4 Power BI (built by Tom); Step 5 README + screenshots — minimum product done |
 | 2026-10-28 (Wed) | Learning and review |

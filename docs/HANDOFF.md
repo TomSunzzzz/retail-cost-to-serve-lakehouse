@@ -17,6 +17,10 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 **Next**
 - Monday: Step 1 Bronze (`src/bronze.py`), Step 2 Silver + DQ (`src/silver.py`, `src/dq.py`), Step 3 Gold (`src/gold.py`), `src/run_pipeline.py`, synthetic budget (`scripts/make_budget.py`).
 
+**Microsoft Fabric**
+- Tom has a working Fabric login until about 2026-11-11. Fabric is now part of the main line (Tuesday), not a stretch goal.
+- Approach: the local Docker pipeline stays the source of truth (it is reproducible after the Fabric access ends). The same PySpark code is run in Fabric (Lakehouse + Notebooks + Data Factory pipeline + Power BI semantic model) for screenshots and a short screen recording, saved under `docs/fabric/`.
+
 **GitHub**
 - Repo: https://github.com/TomSunzzzz/retail-cost-to-serve-lakehouse (private until the README and report are finished, then make public).
 - GitHub CLI installed and logged in as TomSunzzzz; `git push` works from the command line.
