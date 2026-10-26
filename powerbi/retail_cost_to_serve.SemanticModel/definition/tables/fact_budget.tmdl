@@ -1,0 +1,77 @@
+table fact_budget
+	lineageTag: f08be797-59d3-49ac-930b-49df8dcb8583
+
+	measure Budget = SUM ( fact_budget[budget_revenue] )
+		formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+		lineageTag: 4723258b-007b-48d4-b38e-7d0b81196d20
+
+	measure Variance = [Revenue] - [Budget]
+		formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+		lineageTag: 6810b6d9-806f-4bc0-8c34-9ac18a2deca5
+
+	measure 'Variance %' = DIVIDE ( [Variance], [Budget] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 691a4f6f-ffd2-4505-83b7-be4d5b9536ea
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 97b34950-d463-4e5e-b801-d9ad0f165596
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eec9c4de-4f73-405b-8715-86b60a5f067d
+		summarizeBy: none
+		sourceColumn: month_start
+
+		variation Variation
+			isDefault
+			relationship: f39498bf-e0c5-4f31-b27c-6531e01d9478
+			defaultHierarchy: LocalDateTable_769f3504-8c0a-46bf-8d7d-8acd4ee32ef5.日期层次结构
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column state
+		dataType: string
+		lineageTag: b05cc66c-e73a-4f08-bff7-cc0ce45bdad7
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_revenue
+		dataType: double
+		lineageTag: 99c31ab5-c20d-4290-b7b4-9e3548a413aa
+		summarizeBy: sum
+		sourceColumn: budget_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_synthetic
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 65e136d0-62e5-4227-88c7-e24aaaf4703d
+		summarizeBy: none
+		sourceColumn: is_synthetic
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_budget = m
+		mode: import
+		source =
+				let
+				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\fact_budget.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    源
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,73 @@
+table dim_customer
+	lineageTag: bbc016ee-0c96-4827-87d9-058a1dc18fbe
+
+	column customer_id
+		dataType: string
+		lineageTag: 9faaff25-d7b6-4cd4-a306-444607bb44a5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 976b7cfa-c535-457f-8b5d-98c4fbeb8ef8
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zip_code_prefix
+		dataType: string
+		lineageTag: e0a080e9-8b1e-49c9-a0f3-d71e5f8dba13
+		summarizeBy: none
+		sourceColumn: zip_code_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 83c7cde3-aad3-43fb-b7d4-dad30c362a72
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: a5c2445d-1e81-40a3-a9c2-6c4f04b4d090
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: double
+		lineageTag: 2ea75835-ba7e-43cf-bb2f-0ecb8b56711b
+		summarizeBy: none
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lng
+		dataType: double
+		lineageTag: ffb990c3-b64f-42b7-a203-921786e6067f
+		summarizeBy: none
+		sourceColumn: lng
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_customer.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    源
+
+	annotation PBI_ResultType = Table
+

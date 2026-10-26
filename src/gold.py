@@ -158,6 +158,12 @@ def build_fact_order_item(items, orders, reviews, dim_customer, dim_seller):
         haversine_km(F.col("s_lat"), F.col("s_lng"), F.col("c_lat"), F.col("c_lng")).alias("distance_km"),
         F.when(delivered_ok, F.datediff("delivered_at", "purchased_at")).alias("delivery_days"),
         F.when(delivered_ok, F.col("delivered_at") > F.col("estimated_delivery_at")).alias("is_late"),
+        # Text label for reports. A boolean is_late cannot be filtered cleanly in Power BI,
+        # because DAX treats BLANK as equal to FALSE, so undelivered rows leak into "on time".
+        F.when(~delivered_ok, F.lit("No delivery date"))
+        .when(F.col("delivered_at") > F.col("estimated_delivery_at"), F.lit("Late"))
+        .otherwise(F.lit("On time"))
+        .alias("delivery_status"),
         "review_score",
     )
 

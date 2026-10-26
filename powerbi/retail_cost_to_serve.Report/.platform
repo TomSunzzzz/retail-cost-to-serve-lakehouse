@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "retail_cost_to_serve"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "436a6cbb-8e5a-499d-9f79-45ada99e94d8"
+  }
+}

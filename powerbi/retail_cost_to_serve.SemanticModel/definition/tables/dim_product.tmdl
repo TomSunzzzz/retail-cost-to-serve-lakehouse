@@ -1,0 +1,55 @@
+table dim_product
+	lineageTag: 4810d68f-406e-4334-b6a0-fc0d9008358d
+
+	column product_id
+		dataType: string
+		lineageTag: 5801cd34-b217-4f02-ad66-d2fa3d229ad8
+		summarizeBy: none
+		sourceColumn: product_id
+
+	column category
+		dataType: string
+		lineageTag: 14bc6bec-ea1e-42c1-ba3d-920ac0c115ce
+		summarizeBy: none
+		sourceColumn: category
+
+	column category_name
+		dataType: string
+		lineageTag: 81510589-48e7-4b41-9fe7-451aca7a8ce8
+		summarizeBy: none
+		sourceColumn: category_name
+
+	column category_original
+		dataType: string
+		lineageTag: 86305b7c-3b04-4812-855a-fde568b8a911
+		summarizeBy: none
+		sourceColumn: category_original
+
+	column product_weight_g
+		dataType: int64
+		lineageTag: 2bf99a15-137d-439d-9da4-ed1afba88e8a
+		summarizeBy: none
+		sourceColumn: product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_volume_cm3
+		dataType: int64
+		lineageTag: 8a6348e4-64c6-407c-82f3-437992cd59c8
+		summarizeBy: none
+		sourceColumn: product_volume_cm3
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_photos_qty
+		dataType: int64
+		lineageTag: f6315a6b-45d7-452e-bd46-ec51ae8cd7a0
+		summarizeBy: none
+		sourceColumn: product_photos_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = m
+		mode: import
+		source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_product.parquet"))
+

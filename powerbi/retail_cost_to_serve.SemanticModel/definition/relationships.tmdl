@@ -1,0 +1,38 @@
+relationship d11abcb0-f9ac-42b6-ae05-00abf0e6955b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_order_item.order_date
+	toColumn: LocalDateTable_3e060199-c41c-4fb2-8b9c-3a6e486631b9.Date
+
+relationship f39498bf-e0c5-4f31-b27c-6531e01d9478
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_budget.month_start
+	toColumn: LocalDateTable_769f3504-8c0a-46bf-8d7d-8acd4ee32ef5.Date
+
+relationship cf975df3-bfc8-910d-d1cf-e9ed13c8be20
+	fromColumn: fact_order_item.order_date_key
+	toColumn: dim_date.date_key
+
+relationship 5e374c23-2233-ae70-8410-db327b2ebbba
+	fromColumn: fact_order_item.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship d82e4ee0-97e1-8484-4e14-e987c22314ca
+	fromColumn: fact_order_item.seller_id
+	toColumn: dim_seller.seller_id
+
+relationship 167c4d27-4f7a-505f-56ba-9ac648a9f8ef
+	fromColumn: fact_order_item.product_id
+	toColumn: dim_product.product_id
+
+relationship b6ca4494-7198-2f36-99cd-3bf83d532379
+	fromColumn: fact_order_item.customer_state
+	toColumn: dim_state.state
+
+relationship d27a2559-4ae5-bf28-623a-adde2cdfd929
+	fromColumn: fact_budget.date_key
+	toColumn: dim_date.date_key
+
+relationship 4e3269cd-a9a4-14fb-6bc4-278a960bccec
+	fromColumn: fact_budget.state
+	toColumn: dim_state.state
+

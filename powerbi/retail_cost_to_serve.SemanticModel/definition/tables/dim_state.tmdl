@@ -1,0 +1,37 @@
+table dim_state
+	lineageTag: 22033ab5-9963-4a98-8b25-3023d162fe95
+
+	column state
+		dataType: string
+		lineageTag: 53db1dfb-cedc-4df4-8882-115f31f68e34
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_name
+		dataType: string
+		lineageTag: 3ddf4a07-9f15-478a-8f20-c8c70fc623b3
+		summarizeBy: none
+		sourceColumn: state_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 98dedca2-b171-4ff4-b349-a20a2483b000
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_state = m
+		mode: import
+		source =
+				let
+				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_state.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    源
+
+	annotation PBI_ResultType = Table
+

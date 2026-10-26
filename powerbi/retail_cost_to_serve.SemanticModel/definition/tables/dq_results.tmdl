@@ -1,0 +1,73 @@
+table dq_results
+	lineageTag: 083a6d93-17cd-4991-9f93-612aeda57370
+
+	column run_id
+		dataType: string
+		lineageTag: 0e676acc-65c0-47db-9497-1a4ecd04e8fb
+		summarizeBy: none
+		sourceColumn: run_id
+
+	column run_at
+		dataType: dateTime
+		lineageTag: d580932c-5a3c-479b-8a59-0cd1d5307f55
+		summarizeBy: none
+		sourceColumn: run_at
+
+	column layer
+		dataType: string
+		lineageTag: 4bf2c034-d4ce-49a6-95ec-c48a767e3831
+		summarizeBy: none
+		sourceColumn: layer
+
+	column table_name
+		dataType: string
+		lineageTag: f4d27189-0586-4837-8f70-ab2b4fbd3c27
+		summarizeBy: none
+		sourceColumn: table_name
+
+	column rule
+		dataType: string
+		lineageTag: 40ce7c4c-69e6-462f-9646-feed397523eb
+		summarizeBy: none
+		sourceColumn: rule
+
+	column severity
+		dataType: string
+		lineageTag: 8fc889a5-59eb-4d40-aa8d-f16f4c43d8b1
+		summarizeBy: none
+		sourceColumn: severity
+
+	column failed_rows
+		dataType: int64
+		lineageTag: 4d196469-b1c1-4b65-958d-248bfb9f0842
+		summarizeBy: sum
+		sourceColumn: failed_rows
+
+	column total_rows
+		dataType: int64
+		lineageTag: a9528d61-6ed8-4ee0-8202-da3a3f376315
+		summarizeBy: sum
+		sourceColumn: total_rows
+
+	column status
+		dataType: string
+		lineageTag: 57a8dde1-93f1-4d39-8e3b-36a418698176
+		summarizeBy: none
+		sourceColumn: status
+
+	column note
+		dataType: string
+		lineageTag: abed73c6-7362-4173-b5e7-0fe1af32a94a
+		summarizeBy: none
+		sourceColumn: note
+
+	column failed_pct
+		dataType: double
+		lineageTag: 7bbe6e2c-dd09-469d-a752-1fa332be2349
+		summarizeBy: none
+		sourceColumn: failed_pct
+
+	partition dq_results = m
+		mode: import
+		source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dq_results.parquet"))
+

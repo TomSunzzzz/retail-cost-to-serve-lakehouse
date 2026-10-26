@@ -22,3 +22,8 @@ Thumbs.db
 
 # generated review workbook
 review/
+
+# Power BI: the .pbip project folders are the source; local cache/settings and the old .pbix are not
+powerbi/**/.pbi/localSettings.json
+powerbi/**/.pbi/cache.abf
+powerbi/*.pbix

@@ -1,0 +1,47 @@
+createOrReplace
+
+	ref table fact_order_item
+
+		measure Revenue = CALCULATE ( SUM ( fact_order_item[price] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure Orders = CALCULATE ( DISTINCTCOUNT ( fact_order_item[order_id] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: #,0
+
+		measure 'Avg Order Value' = DIVIDE ( [Revenue], [Orders] )
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure Freight = CALCULATE ( SUM ( fact_order_item[freight_value] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure 'Freight %' = DIVIDE ( [Freight], [Revenue] )
+			formatString: 0.0%;-0.0%;0.0%
+
+		measure 'Late %' = DIVIDE ( CALCULATE ( COUNTROWS ( fact_order_item ), fact_order_item[is_revenue] = TRUE (), fact_order_item[is_late] = TRUE () ), CALCULATE ( COUNTROWS ( fact_order_item ), fact_order_item[is_revenue] = TRUE (), NOT ISBLANK ( fact_order_item[is_late] ) ) )
+			formatString: 0.0%;-0.0%;0.0%
+
+		measure 'Avg Delivery Days' = CALCULATE ( AVERAGE ( fact_order_item[delivery_days] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: 0.0
+
+		measure 'Avg Distance km' = CALCULATE ( AVERAGE ( fact_order_item[distance_km] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: #,0
+
+		measure 'Avg Review' = CALCULATE ( AVERAGE ( fact_order_item[review_score] ), fact_order_item[is_revenue] = TRUE () )
+			formatString: 0.00
+
+		measure 'Revenue PY' = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure 'Revenue YoY %' = DIVIDE ( [Revenue] - [Revenue PY], [Revenue PY] )
+			formatString: 0.0%;-0.0%;0.0%
+
+	ref table fact_budget
+
+		measure Budget = SUM ( fact_budget[budget_revenue] )
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure Variance = [Revenue] - [Budget]
+			formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+
+		measure 'Variance %' = DIVIDE ( [Variance], [Budget] )
+			formatString: 0.0%;-0.0%;0.0%

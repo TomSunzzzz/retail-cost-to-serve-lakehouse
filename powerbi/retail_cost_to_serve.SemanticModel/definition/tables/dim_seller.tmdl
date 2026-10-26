@@ -1,0 +1,47 @@
+table dim_seller
+	lineageTag: 1e89071d-1c51-40ed-8378-3c032b9368b1
+
+	column seller_id
+		dataType: string
+		lineageTag: ccd7d1ea-0176-4f6c-af2a-c5e6e48c33db
+		summarizeBy: none
+		sourceColumn: seller_id
+
+	column zip_code_prefix
+		dataType: string
+		lineageTag: a545a808-1cf2-4b7b-9d20-f941bc397b48
+		summarizeBy: none
+		sourceColumn: zip_code_prefix
+
+	column city
+		dataType: string
+		lineageTag: 48ecb1a1-d4e0-4302-953a-2cad74277453
+		summarizeBy: none
+		sourceColumn: city
+
+	column state
+		dataType: string
+		lineageTag: 028d7c19-a24e-4571-9814-aa040de75835
+		summarizeBy: none
+		sourceColumn: state
+
+	column lat
+		dataType: double
+		lineageTag: d76591fa-cad3-4003-8c21-1b36365ef1f9
+		summarizeBy: none
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+	column lng
+		dataType: double
+		lineageTag: ba38e3b1-7e1b-4bab-8589-35fd414ea90d
+		summarizeBy: none
+		sourceColumn: lng
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_seller = m
+		mode: import
+		source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_seller.parquet"))
+

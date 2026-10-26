@@ -1,0 +1,240 @@
+table fact_order_item
+	lineageTag: d3bf5d6d-0449-41b0-9c07-0347d00220f4
+
+	measure Revenue = CALCULATE ( SUM ( fact_order_item[price] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+		lineageTag: 5f621e0e-17c8-4708-a8e2-f62c6d9907f2
+
+	measure Orders = CALCULATE ( DISTINCTCOUNT ( fact_order_item[order_id] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: #,0
+		lineageTag: c44f2992-9620-434e-a050-9c0058dd970c
+
+	measure 'Avg Order Value' = DIVIDE ( [Revenue], [Orders] )
+		formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+		lineageTag: db07fbd1-f783-4ba3-a0dd-5ba2a478f86b
+
+	measure Freight = CALCULATE ( SUM ( fact_order_item[freight_value] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 8390b370-1680-4fef-ac98-4662fdde55df
+
+	measure 'Freight %' = DIVIDE ( [Freight], [Revenue] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 20dc58a4-f078-4917-898e-198d205f91b5
+
+	measure 'Late %' = DIVIDE ( CALCULATE ( COUNTROWS ( fact_order_item ), fact_order_item[is_revenue] = TRUE (), fact_order_item[is_late] = TRUE () ), CALCULATE ( COUNTROWS ( fact_order_item ), fact_order_item[is_revenue] = TRUE (), NOT ISBLANK ( fact_order_item[is_late] ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 1a1ba5bd-1ee1-48fb-8e9c-0872ef40d232
+
+	measure 'Avg Delivery Days' = CALCULATE ( AVERAGE ( fact_order_item[delivery_days] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: 0.0
+		lineageTag: 29b521c4-2009-4be8-ad37-6404e14e3a36
+
+	measure 'Avg Distance km' = CALCULATE ( AVERAGE ( fact_order_item[distance_km] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: #,0
+		lineageTag: d802b227-0728-4b73-b297-1699b6768612
+
+	measure 'Avg Review' = CALCULATE ( AVERAGE ( fact_order_item[review_score] ), fact_order_item[is_revenue] = TRUE () )
+		formatString: 0.00
+		lineageTag: af747ee1-f7a0-47b1-bde5-ea4f9f4eefd7
+
+	measure 'Revenue PY' = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: \R$ #,0;-\R$ #,0;\R$ #,0
+		lineageTag: e4e1e1e9-69b6-45c9-ad5b-577f0ac1485a
+
+	measure 'Revenue YoY %' = DIVIDE ( [Revenue] - [Revenue PY], [Revenue PY] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c7ea05b5-bf3d-4999-b365-e158e53fede8
+
+	column order_id
+		dataType: string
+		lineageTag: b7f46906-62bb-489f-b192-336565fd51a8
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e8ab056-6f98-4987-b7dd-9dcd4fde72ec
+		summarizeBy: sum
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 51c66230-9559-4e44-bbd9-fcd552a578f7
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 822a03d5-a26b-486b-b1b2-a968b685de45
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: dce4b8d9-173c-49ba-b808-b2291ef27acd
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: 6460692f-e72c-4ce6-976b-05c2d73998c3
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_state
+		dataType: string
+		lineageTag: 0cead8f5-d4e8-4800-9214-747ae1f7815f
+		summarizeBy: none
+		sourceColumn: seller_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: a676136f-cc6a-44a9-a532-b80dc1b63b82
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cf1b457f-cd23-4584-af61-83e6ef061f53
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: d11abcb0-f9ac-42b6-ae05-00abf0e6955b
+			defaultHierarchy: LocalDateTable_3e060199-c41c-4fb2-8b9c-3a6e486631b9.日期层次结构
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_status
+		dataType: string
+		lineageTag: 5640832a-2ffd-4b44-b4b1-b65effee70bc
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_revenue
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b7ee08cb-4e43-4450-9270-981f9a2dce0a
+		summarizeBy: none
+		sourceColumn: is_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: c86b34e8-ae96-409a-8286-8ce308170693
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_value
+		dataType: double
+		lineageTag: b6c8fa01-4734-47ca-b5d5-27980b668c65
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_total
+		dataType: double
+		lineageTag: cb48d276-58cb-40a5-be3a-052454169f12
+		summarizeBy: sum
+		sourceColumn: item_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_interstate
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 60816b32-43f8-4011-ac19-6e259a4e7c24
+		summarizeBy: none
+		sourceColumn: is_interstate
+
+		annotation SummarizationSetBy = Automatic
+
+	column distance_km
+		dataType: double
+		lineageTag: b400ab0b-c9f3-4605-84ff-7c222b6f64e0
+		summarizeBy: sum
+		sourceColumn: distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column delivery_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 35c128d0-4416-47e1-bf58-a4cc7cc3ce16
+		summarizeBy: sum
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0747da7-6ead-4e5b-952a-4454ba349923
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: int64
+		formatString: 0
+		lineageTag: add649a7-900a-430b-bf9b-4cfcd6b1aefb
+		summarizeBy: sum
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_status
+		dataType: string
+		lineageTag: ac4745be-e2cb-4f08-a0ad-a19cb68ae2ea
+		summarizeBy: none
+		sourceColumn: delivery_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order_item = m
+		mode: import
+		source =
+				let
+				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\fact_order_item.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				in
+				    源
+
+	annotation PBI_ResultType = Table
+

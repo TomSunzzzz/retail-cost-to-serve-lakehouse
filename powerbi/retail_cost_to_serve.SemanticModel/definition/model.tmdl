@@ -1,0 +1,29 @@
+model Model
+	culture: zh-CN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: zh-CN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fact_order_item","fact_budget","dim_date","dim_state","dim_customer","dim_seller","dim_product","dq_results"]
+
+annotation PBI_ProTooling = ["TMDLView_Desktop","DaxQueryView_Desktop","DevMode"]
+
+ref table fact_order_item
+ref table DateTableTemplate_607766cf-e9b3-4790-ae35-225cf0c04601
+ref table LocalDateTable_3e060199-c41c-4fb2-8b9c-3a6e486631b9
+ref table fact_budget
+ref table LocalDateTable_769f3504-8c0a-46bf-8d7d-8acd4ee32ef5
+ref table dim_date
+ref table dim_state
+ref table dim_customer
+ref table dim_seller
+ref table dim_product
+ref table dq_results
+
+ref cultureInfo zh-CN
+

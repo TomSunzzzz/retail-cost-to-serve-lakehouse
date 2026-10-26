@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0924cb13c5d26d020d26",
+  "position": {
+    "x": 880,
+    "y": 0,
+    "z": 3000,
+    "height": 280,
+    "width": 280,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_order_item"
+                    }
+                  },
+                  "Property": "Late %"
+                }
+              },
+              "queryRef": "fact_order_item.Late %",
+              "nativeQueryRef": "Late %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

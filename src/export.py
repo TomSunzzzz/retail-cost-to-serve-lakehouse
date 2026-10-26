@@ -34,6 +34,10 @@ def run(spark: SparkSession):
     sources["dq_results"] = f"{SILVER_DIR}/dq_results"
     for table, path in sources.items():
         df = spark.read.format("delta").load(path)
+        if table == "dq_results":
+            # the Delta table keeps every run's history; the report shows the latest run
+            latest = df.agg({"run_at": "max"}).first()[0]
+            df = df.where(df.run_at == latest)
         write_single_parquet(df, out / f"{table}.parquet")
         print(f"  export/{table}.parquet")
 

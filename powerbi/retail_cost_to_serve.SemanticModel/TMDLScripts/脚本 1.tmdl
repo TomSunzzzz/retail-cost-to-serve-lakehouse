@@ -1,0 +1,139 @@
+createOrReplace
+
+	table dim_seller
+
+		column seller_id
+			dataType: string
+			summarizeBy: none
+			sourceColumn: seller_id
+
+		column zip_code_prefix
+			dataType: string
+			summarizeBy: none
+			sourceColumn: zip_code_prefix
+
+		column city
+			dataType: string
+			summarizeBy: none
+			sourceColumn: city
+
+		column state
+			dataType: string
+			summarizeBy: none
+			sourceColumn: state
+
+		column lat
+			dataType: double
+			summarizeBy: none
+			sourceColumn: lat
+
+		column lng
+			dataType: double
+			summarizeBy: none
+			sourceColumn: lng
+
+		partition dim_seller = m
+			mode: import
+			source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_seller.parquet"))
+
+	table dim_product
+
+		column product_id
+			dataType: string
+			summarizeBy: none
+			sourceColumn: product_id
+
+		column category
+			dataType: string
+			summarizeBy: none
+			sourceColumn: category
+
+		column category_name
+			dataType: string
+			summarizeBy: none
+			sourceColumn: category_name
+
+		column category_original
+			dataType: string
+			summarizeBy: none
+			sourceColumn: category_original
+
+		column product_weight_g
+			dataType: int64
+			summarizeBy: sum
+			sourceColumn: product_weight_g
+
+		column product_volume_cm3
+			dataType: int64
+			summarizeBy: sum
+			sourceColumn: product_volume_cm3
+
+		column product_photos_qty
+			dataType: int64
+			summarizeBy: none
+			sourceColumn: product_photos_qty
+
+		partition dim_product = m
+			mode: import
+			source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_product.parquet"))
+
+	table dq_results
+
+		column run_id
+			dataType: string
+			summarizeBy: none
+			sourceColumn: run_id
+
+		column run_at
+			dataType: dateTime
+			summarizeBy: none
+			sourceColumn: run_at
+
+		column layer
+			dataType: string
+			summarizeBy: none
+			sourceColumn: layer
+
+		column table_name
+			dataType: string
+			summarizeBy: none
+			sourceColumn: table_name
+
+		column rule
+			dataType: string
+			summarizeBy: none
+			sourceColumn: rule
+
+		column severity
+			dataType: string
+			summarizeBy: none
+			sourceColumn: severity
+
+		column failed_rows
+			dataType: int64
+			summarizeBy: sum
+			sourceColumn: failed_rows
+
+		column total_rows
+			dataType: int64
+			summarizeBy: sum
+			sourceColumn: total_rows
+
+		column status
+			dataType: string
+			summarizeBy: none
+			sourceColumn: status
+
+		column note
+			dataType: string
+			summarizeBy: none
+			sourceColumn: note
+
+		column failed_pct
+			dataType: double
+			summarizeBy: none
+			sourceColumn: failed_pct
+
+		partition dq_results = m
+			mode: import
+			source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dq_results.parquet"))
