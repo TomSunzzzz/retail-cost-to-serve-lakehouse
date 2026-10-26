@@ -4,6 +4,21 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 
 ---
 
+## 2026-10-26 — Claude Code (Opus 5.5) — Silver
+
+**Done**
+- `src/cleaning.py` (city normaliser, casts), `src/dq.py` (DQ framework → `lakehouse/silver/dq_results`), `src/silver.py`, `tests/test_cleaning.py` (16 real-data city cases).
+- Run: `docker compose run --rm spark python -m src.silver` (~2 min). Tests: `python -m tests.test_cleaning`.
+- 35 checks: 26 PASS, 9 WARN, 0 FAIL. Warnings are known and handled: 383 zero-freight items (kept), 8 delivered orders without delivery date (flagged), 9 zero-value payments, 3 `not_defined` payment types, 814 review_ids shared by several orders, 610 products without category (`unknown`), 1 seller city that was a zip code (null), 42 geolocation points outside Brazil (dropped), 279 customers whose zip has no coordinates.
+- Profiling findings that drove the rules are listed in the `src/silver.py` docstring.
+- City rule: strip a state code only when glued with a hyphen (`andira-pr`); never with a space, because `sento se` is a real city.
+- Partial months: 2016-09…2016-12 and 2018-09/10 have very few orders. Gold/report should use 2017-01 to 2018-08 for trends and budget.
+
+**Next**
+- Gold star schema (`src/gold.py`), synthetic budget, `src/run_pipeline.py`, export for Power BI.
+
+---
+
 ## 2026-10-26 — Claude Code (Opus 5.5) — Bronze
 
 **Done**

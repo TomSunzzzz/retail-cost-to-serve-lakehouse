@@ -32,6 +32,9 @@ Docker Desktop must be running.
 ```bash
 docker compose build
 docker compose run --rm spark python scripts/smoke_test.py
+docker compose run --rm spark python -m src.bronze
+docker compose run --rm spark python -m src.silver
+docker compose run --rm spark python -m tests.test_cleaning
 ```
 
 ## Rules for every agent
