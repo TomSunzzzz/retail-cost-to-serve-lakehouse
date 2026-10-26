@@ -27,3 +27,5 @@ review/
 powerbi/**/.pbi/localSettings.json
 powerbi/**/.pbi/cache.abf
 powerbi/*.pbix
+powerbi/**/TMDLScripts/
+powerbi/**/DAXQueries/

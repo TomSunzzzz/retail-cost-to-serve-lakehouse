@@ -15,6 +15,7 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 - Gotchas: Power BI must be closed before editing PBIR/TMDL files. New columns need adding to the table's TMDL (a data refresh does not add columns; "refresh schema and data" failed with a circular-reference error from the auto date/time tables).
 
 **Next**
+- **Before making the repo public, remove Chinese text that Power BI's Chinese UI generated** (repo must be English only): turn off File > Options > Current file > Data load > Auto date/time (drops the `LocalDateTable_*` / `DateTableTemplate_*` tables with Chinese column names; reports use `dim_date`, not the auto hierarchies), rename the M step `源` to `Source` in each table's TMDL, and rename the model diagram `所有表` in `diagramLayout.json`. Do it with Power BI closed, then re-scan tracked files for CJK characters.
 - README with architecture, screenshots of the 4 pages, findings; Fabric run (Lakehouse + Notebooks + pipeline) and screenshots.
 
 ---
