@@ -18,6 +18,7 @@ def get_spark(app_name: str = "retail-lakehouse") -> SparkSession:
         .config("spark.jars.ivy", "/opt/ivy2")
         .config("spark.sql.session.timeZone", "UTC")
         .config("spark.driver.memory", "4g")
+        .config("spark.ui.showConsoleProgress", "false")
     )
     spark = configure_spark_with_delta_pip(builder).getOrCreate()
     spark.sparkContext.setLogLevel("WARN")
