@@ -63,14 +63,17 @@ Minimum data-quality rules (at least 5):
 ### Gold — `lakehouse/gold/<table>` (star schema)
 | Table | Grain |
 |---|---|
-| fact_order_item | one row per order item (price, freight, dates, keys) |
-| fact_budget | one row per month × state (synthetic budget revenue) |
+| fact_order_item | one row per order item (price, freight, item_total, is_revenue, distance_km, delivery_days, is_late, review_score, keys) |
+| fact_budget | one row per month × state (SYNTHETIC: 3-month smoothed actual run-rate × 1.05 target, seeded ±6% variation, split by state revenue share) |
 | dim_date | one row per calendar day |
 | dim_customer | one row per customer_id, with city, state, region |
 | dim_seller | one row per seller, with city, state |
 | dim_product | one row per product, with English category |
+| dim_state | one row per Brazilian state (27), with region; shared by fact_order_item and fact_budget |
 
-Power BI reads Gold via exported Parquet/CSV (local) or Direct Lake (Fabric).
+Power BI reads Gold via `lakehouse/export/*.parquet` (one file per table, written by `src/export.py`) locally, or Direct Lake in Fabric.
+
+Definitions: revenue = item price of `delivered` orders; reporting period = 2017-01 to 2018-08 (`dim_date.in_reporting_period`).
 
 ### Power BI measures (minimum)
 Total Revenue, Orders, Average Order Value, Total Freight, Freight % of Revenue, Budget, Variance, Variance %, Revenue YoY %.

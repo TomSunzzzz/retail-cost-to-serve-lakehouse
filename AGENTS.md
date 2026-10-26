@@ -16,7 +16,7 @@ The stack mirrors a Microsoft Fabric Lakehouse (Spark + Delta), so the code can 
 
 ```
 data_set/archive/      raw Olist CSVs (input; never modified; not committed)
-lakehouse/             pipeline output: bronze/, silver/, gold/ Delta tables (not committed)
+lakehouse/             pipeline output: bronze/, silver/, gold/ Delta tables; export/ Parquet for Power BI (not committed)
 src/                   pipeline code (PySpark)
 scripts/               one-off helpers (smoke test, budget generator)
 powerbi/               Power BI .pbix file and screenshots
@@ -31,10 +31,9 @@ Docker Desktop must be running.
 
 ```bash
 docker compose build
-docker compose run --rm spark python scripts/smoke_test.py
-docker compose run --rm spark python -m src.bronze
-docker compose run --rm spark python -m src.silver
-docker compose run --rm spark python -m tests.test_cleaning
+docker compose run --rm spark python -m src.run_pipeline    # Bronze -> Silver -> Gold -> export (~3.5 min)
+docker compose run --rm spark python -m tests.test_cleaning   # city normaliser tests
+# single layers: python -m src.bronze | src.silver | src.gold | src.export
 ```
 
 ## Rules for every agent

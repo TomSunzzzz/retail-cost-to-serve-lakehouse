@@ -4,6 +4,25 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 
 ---
 
+## 2026-10-26 — Claude Code (Opus 5.5) — Gold, full pipeline, export
+
+**Done**
+- `src/gold.py`: star schema — fact_order_item (112,650), fact_budget (540, synthetic), dim_date (852), dim_state (27), dim_customer (99,441), dim_seller (3,095), dim_product (32,951). Added `dim_state` (not in the original plan) so sales and budget share one state/region filter.
+- Gold DQ: row count and delivered revenue reconcile exactly to Silver; all fact keys exist in dimensions. 555 items lack a distance (zip without coordinates), warn only.
+- Budget method changed after a first attempt: a straight trend line gave -60% variance in the launch month and -20% through mid-2018 (the business ramps up, then plateaus). Now a 3-month smoothed run-rate × 1.05; most months within ±15%, Nov 2017 (Black Friday) +24%, total actual = 96% of budget.
+- `src/export.py`: one Parquet per Gold table + dq_results in `lakehouse/export/` for Power BI Desktop.
+- `src/run_pipeline.py`: one command, one run_id, stops on any error-level DQ failure. Full run from scratch: ~3.5 min, 46 checks (36 pass, 10 warn, 0 fail).
+
+**Findings for the report (reporting period, delivered revenue)**
+- Revenue 13.18M BRL, 96,211 orders, AOV 137.
+- Cost-to-serve: freight is 22.7% of revenue in the North and 21.7% in the Northeast vs 15.2% in the Southeast; average distance 2,230 km vs 357 km; delivery 22.5 vs 10.6 days; Northeast late rate 14.2%.
+- Late deliveries average a 2.55 review score vs 4.21 on time.
+
+**Next (Tuesday)**
+- Power BI Desktop on `lakehouse/export/*.parquet` (Tom builds it): relationships, measures, 3 pages. Then the Fabric run, README, screenshots.
+
+---
+
 ## 2026-10-26 — Claude Code (Opus 5.5) — Silver
 
 **Done**
