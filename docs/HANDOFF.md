@@ -9,10 +9,12 @@ Newest entry on top. Every agent adds an entry at the end of its session.
 **Done**
 - Removed the Chinese text that Power BI's Chinese UI had generated: Auto date/time turned off for this file (the auto `LocalDateTable_*` / `DateTableTemplate_*` tables are gone), "auto-detect new relationships after load" turned off, M step renamed to `Source` in every table, model diagram renamed to `All tables`. A scan of the repo (excluding data and output) finds no CJK characters.
 - `README.md` drafted: findings table, architecture, data quality, report pages, design decisions, how to run, honest notes (synthetic budget, AI-assisted build).
+- Report made language-independent for screenshots: Current file > Regional settings > format locale English (Australia) and display units default None (cards show R$ 13,181,027, dates Jan 2017); explicit English titles on every visual with subtitles hidden and table totals rows off (`scripts/set_visual_titles.py`), since Power BI renders default subtitles ("by ...") and the "Total" label in the UI language.
+- Screenshots of pages 1-3 in `docs/screenshots/`.
 - Keep Power BI's UI language in mind: anything Power BI generates while in Chinese (step names, diagram names, auto tables) must be renamed before committing.
 
 **Next**
-- Screenshots of the 4 report pages into `docs/screenshots/` (README already links `sales_overview.png`, `budget_vs_actual.png`, `cost_to_serve.png`), then make the repo public.
+- Make the repo public (Tom to confirm).
 - Fabric run (Lakehouse + Notebooks + pipeline), screenshots, and a Fabric section in the README.
 
 ---

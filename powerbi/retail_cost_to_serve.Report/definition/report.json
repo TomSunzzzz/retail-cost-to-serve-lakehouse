@@ -31,7 +31,7 @@
           "expanded": {
             "expr": {
               "Literal": {
-                "Value": "true"
+                "Value": "false"
               }
             }
           }
@@ -61,6 +61,8 @@
     "useDefaultAggregateDisplayName": true,
     "queryLimitOption": "None",
     "customMemoryLimit": "1048576",
-    "customTimeoutLimit": "225"
+    "customTimeoutLimit": "225",
+    "locale": "en-AU",
+    "defaultDisplayUnitsToNone": true
   }
 }
