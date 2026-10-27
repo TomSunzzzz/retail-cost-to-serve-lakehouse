@@ -118,11 +118,6 @@ table fact_order_item
 		summarizeBy: none
 		sourceColumn: order_date
 
-		variation Variation
-			isDefault
-			relationship: d11abcb0-f9ac-42b6-ae05-00abf0e6955b
-			defaultHierarchy: LocalDateTable_3e060199-c41c-4fb2-8b9c-3a6e486631b9.日期层次结构
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -232,9 +227,9 @@ table fact_order_item
 		mode: import
 		source =
 				let
-				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\fact_order_item.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				    Source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\fact_order_item.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
 				in
-				    源
+				    Source
 
 	annotation PBI_ResultType = Table
 

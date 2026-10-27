@@ -116,9 +116,9 @@ table dim_date
 		mode: import
 		source =
 				let
-				    源 = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_date.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
+				    Source = Parquet.Document(File.Contents("E:\AI_workshops\mutual_projects\data_visualization\lakehouse\export\dim_date.parquet"), [Compression=null, LegacyColumnNameEncoding=false, MaxDepth=null])
 				in
-				    源
+				    Source
 
 	annotation PBI_ResultType = Table
 

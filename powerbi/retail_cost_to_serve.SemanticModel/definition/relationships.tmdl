@@ -1,13 +1,3 @@
-relationship d11abcb0-f9ac-42b6-ae05-00abf0e6955b
-	joinOnDateBehavior: datePartOnly
-	fromColumn: fact_order_item.order_date
-	toColumn: LocalDateTable_3e060199-c41c-4fb2-8b9c-3a6e486631b9.Date
-
-relationship f39498bf-e0c5-4f31-b27c-6531e01d9478
-	joinOnDateBehavior: datePartOnly
-	fromColumn: fact_budget.month_start
-	toColumn: LocalDateTable_769f3504-8c0a-46bf-8d7d-8acd4ee32ef5.Date
-
 relationship cf975df3-bfc8-910d-d1cf-e9ed13c8be20
 	fromColumn: fact_order_item.order_date_key
 	toColumn: dim_date.date_key

@@ -113,7 +113,7 @@
           "zIndex": 7
         }
       ],
-      "name": "所有表",
+      "name": "All tables",
       "zoomValue": 56.447393005378125,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
@@ -121,6 +121,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "所有表",
-  "defaultDiagram": "所有表"
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
 }
