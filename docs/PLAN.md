@@ -17,7 +17,7 @@ Step 0  Data        9 Olist CSVs (data_set/archive/) + synthetic monthly budget 
 Step 1  Bronze      ingest raw CSVs as-is, add _ingested_at and _source_file → Delta
 Step 2  Silver      clean and conform each table + data-quality checks → Delta + dq_results
 Step 3  Gold        star schema for reporting → Delta
-Step 4  Report      Power BI Desktop on Gold tables: relationships, DAX measures, 3 pages
+Step 4  Report      Power BI Desktop on Gold tables: relationships, DAX measures, 4 pages
 Step 5  Package     README with architecture diagram, design decisions, screenshots → GitHub
 ```
 
@@ -30,7 +30,7 @@ One command runs Steps 1-3: `docker compose run --rm spark python -m src.run_pip
 | olist_orders_dataset.csv | 99,441 | order_id |
 | olist_order_items_dataset.csv | 112,650 | order_id + order_item_id |
 | olist_order_payments_dataset.csv | 103,886 | order_id + payment_sequential |
-| olist_order_reviews_dataset.csv | 104,719 | review_id |
+| olist_order_reviews_dataset.csv | 99,224 (104,719 text lines: comments contain line breaks) | review_id + order_id |
 | olist_customers_dataset.csv | 99,441 | customer_id (customer_unique_id = real person) |
 | olist_sellers_dataset.csv | 3,095 | seller_id |
 | olist_products_dataset.csv | 32,951 | product_id |
@@ -79,16 +79,16 @@ Definitions: revenue = item price of `delivered` orders; reporting period = 2017
 Total Revenue, Orders, Average Order Value, Total Freight, Freight % of Revenue, Budget, Variance, Variance %, Revenue YoY %.
 
 ## Minimum product (definition of done)
-- [ ] One command runs Bronze → Silver → Gold end to end
-- [ ] At least 5 data-quality rules, results logged to dq_results every run
-- [ ] Gold star schema: 2 fact tables + 4 dimensions
-- [ ] Power BI: 3 pages (sales overview, budget vs actual, cost-to-serve)
+- [x] One command runs Bronze → Silver → Gold end to end
+- [x] At least 5 data-quality rules, results logged to dq_results every run (46 checks)
+- [x] Gold star schema: 2 fact tables + 5 dimensions
+- [x] Power BI: 4 pages (sales overview, budget vs actual, cost-to-serve, data quality)
 - [ ] Public GitHub repo with an English README (architecture, how to run, design decisions, screenshots, honest notes)
 - [ ] Owner can explain every layer
 
 ## Stretch (only after the minimum product)
 1. (moved to main line, see below)
-2. Power BI page 4: data-quality dashboard
+2. ~~Power BI page 4: data-quality dashboard~~ (done)
 3. LLM classification of review comments into complaint themes
 4. Incremental loads (process only new data)
 
